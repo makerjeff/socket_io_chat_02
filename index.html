@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Socket IO Chat 2.0!</title>
+	<style>
+		* {
+			margin: 0px;
+			padding: 0px;
+		}
+
+		#chat {
+			position:relative;
+		}
+	</style>
+</head>
+<body>
+<h1>Socket IO Chat 2.0!</h1>
+<p>
+	Some data. I don't know what other data I need.
+</p>
+<div id="chat">
+	<form id="send-message">
+		<input size="35" id="message" autocomplete="off">
+		<button id="button1">submit</button>
+	</form>
+</div>
+
+<div id="postBox"></div>
+
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function(event){
+		var socket = io.connect();
+		var form = document.getElementById('send-message');
+		var messageBox = document.getElementById('message');
+		var chatBox = document.getElementById('chat');
+		var button1 = document.getElementById('button1');
+		var postBox = document.getElementById('postBox');
+
+		var string = '';
+
+		button1.addEventListener('click', function(event){
+			event.preventDefault();
+			socket.emit('send message', messageBox.value);
+			messageBox.value = '';
+		});
+
+		//handle socket message emit
+		socket.on('new message', function(data){
+
+			string += data + ' <br/>';
+
+			postBox.innerHTML = string;
+
+		});
+	});
+
+</script>
+</body>
+</html>
