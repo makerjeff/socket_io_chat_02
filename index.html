@@ -11,7 +11,6 @@
 
 		#chat {
 			position:relative;
-			height: 500px;
 		}
 	</style>
 </head>
@@ -22,14 +21,14 @@
 </p>
 <div id="chat">
 	<form id="send-message">
-		<input size="35" id="message">
-		<input type="submit">
+		<input size="35" id="message" autocomplete="off">
+		<button id="button1">submit</button>
 	</form>
-
-
 </div>
 
-<script src="http://code.jquery.com/jquery-lastest.min.js"></script>
+<div id="postBox"></div>
+
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 
 <script>
@@ -38,6 +37,25 @@
 		var form = document.getElementById('send-message');
 		var messageBox = document.getElementById('message');
 		var chatBox = document.getElementById('chat');
+		var button1 = document.getElementById('button1');
+		var postBox = document.getElementById('postBox');
+
+		var string = '';
+
+		button1.addEventListener('click', function(event){
+			event.preventDefault();
+			socket.emit('send message', messageBox.value);
+			messageBox.value = '';
+		});
+
+		//handle socket message emit
+		socket.on('new message', function(data){
+
+			string += data + ' <br/>';
+
+			postBox.innerHTML = string;
+
+		});
 	});
 
 </script>
