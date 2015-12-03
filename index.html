@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Socket IO Chat 2.0!</title>
+	<title>Socket IO Chat 0.0.21</title>
 	<style>
 		* {
 			margin: 0px;
@@ -15,9 +15,9 @@
 	</style>
 </head>
 <body>
-<h1>Socket IO Chat 2.0!</h1>
+<h1>Socket IO Chat 0.0.21</h1>
 <p>
-	Some data. I don't know what other data I need.
+	Enter a message! Anyone connected will see it.
 </p>
 <div id="chat">
 	<form id="send-message">
@@ -50,9 +50,7 @@
 
 		//handle socket message emit
 		socket.on('new message', function(data){
-
 			string += data + ' <br/>';
-
 			postBox.innerHTML = string;
 
 		});
